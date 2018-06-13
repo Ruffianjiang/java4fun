@@ -20,106 +20,107 @@ import org.springframework.stereotype.Service;
 import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;
 
 /**
- * @Author: wangxc
- * @GitHub: https://github.com/vector4wang
- * @CSDN: http://blog.csdn.net/qqhjqs?viewmode=contents
- * @BLOG: http://vector4wang.tk
- * @wxid: BMHJQS
+ * @Author: jiangyj
+ * @GitHub: https://github.com/Ruffianjiang
+ * @CSDN: https://www.cnblogs.com/lossingdawn
+ * @BLOG: https://lossingdanw.top
+ * @wxid: 
  */
 @Service
 public class CNBlog2mdService {
 
-//    public final static String username = "qqhjqs";
+    // public final static String username = "qqhjqs";
     public final static String HOST_URL = "http://www.cnblogs.com/";
-    public final static String TOP_XPATH = "#article_toplist .list_item,.article_item";
-    public final static String NOMAIL_QUERY = "#article_list .list_item,.article_item";
-    public final static String TARGET_DIR = "F:\\blog\\article";
+    public final static String TOP_XPATH = "div.day";
+    public final static String TARGET_DIR = "F:\\blog\\article\\lossingdawn\\";
 
     public static void main(String[] args) throws IOException, XpathSyntaxErrorException {
-/*-        String convert = convert(new URL("http://blog.csdn.net/qqhjqs/article/details/66474364"));
+        /*-        
+        String convert = convert(new URL("http://blog.csdn.net/qqhjqs/article/details/66474364"));
         System.out.println(convert);*/
+        convertAllBlogByUserName("lossingdawn");
     }
 
     public String convert(URL url) throws IOException {
-        Document doc = Jsoup.parse(url,5000);
+        Document doc = Jsoup.parse(url, 5000);
         doc.getElementsByTag("script").remove();
         String content = doc.select("#article_content").toString();
         String result = HTML2Md.convertHtml4csdn(content, "utf-8");
         return result;
     }
 
-    public String convert(String html){
-        Document doc = Jsoup.parse(html,"utf-8");
+    public String convert(String html) {
+        Document doc = Jsoup.parse(html, "utf-8");
         doc.getElementsByTag("script").remove();
         Elements select = doc.select("#article_content");
-        if(select.isEmpty()){
+        if (select.isEmpty()) {
             String convert = HTML2Md.convert(html, "utf-8");
             return convert;
-        }else{
+        } else {
             String content = select.toString();
             String result = HTML2Md.convertHtml4csdn(content, "utf-8");
             return result;
         }
-
     }
 
     private static void convertAllBlogByUserName(String username) throws IOException {
-//        String mdString = "";
-        String url = HOST_URL + username + "/article/list/" + 1;
+        // String mdString = "";
+        String url = HOST_URL + username + "/";
         Document parse = Jsoup.parse(new URL(url), 5000);
-        Element element = parse.select("div#papelist span").get(0);
+        Element element = parse.select("div#blog_stats").get(0);
+        // 有点暴力，需注意
+
         String papelistInfo = element.text();
-        String totalPage = papelistInfo.split("共")[1].split("页")[0]; // 有点暴力，需注意
-        int total = Integer.valueOf(totalPage);
+        String totalSizeStr = papelistInfo
+                .substring(papelistInfo.indexOf("随笔") + "随笔 -".length(), papelistInfo.indexOf("文章")).replaceAll("\\D", "");
+        int totalSize = Integer.valueOf(totalSizeStr);
+        int total = (totalSize % 10 == 0) ? (totalSize / 10) : (totalSize / 10 + 1);
         System.out.println(total);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         for (int i = 1; i <= total; i++) {
-            String listUrl = HOST_URL + username + "/article/list/" + i;
+            String listUrl = HOST_URL + username + "/default.html?page=" + i;
             Document doc = Jsoup.parse(new URL(listUrl), 5000);
             Elements topSelect = doc.select(TOP_XPATH);
-            Elements normalSelect = doc.select(NOMAIL_QUERY);
             for (Element item : topSelect) {
-                map.put(item.select(".article_title  h1  span  a").get(0).attr("href"),item.select(".article_description").get(0).text());
-            }
-            for (Element item : normalSelect) {
-                map.put(item.select(".article_title  h1  span  a").get(0).attr("href"),item.select(".article_description").get(0).text());
+                map.put(item.select("div.postTitle").first().children().select("a").attr("href"),
+                        item.select("div.c_b_p_desc").first().text());
             }
         }
         Set<String> strings = map.keySet();
-        for(String item:strings){
-            Document doc = Jsoup.parse(new URL(HOST_URL + item), 5000);
+        for (String item : strings) {
+
+            Document doc = Jsoup.parse(new URL(item), 5000);
             BlogModel bm = new BlogModel();
-            bm.setTitle(doc.select("#article_details > div.article_title > h1 > span > a").text());
+            bm.setTitle(doc.select("a#cb_post_title_url").text());
             bm.setDesc(map.get(item));
-            bm.setPublishDate(doc.select("#article_details > div.article_manage.clearfix > div.article_r > span.link_postdate").text());
-            Elements select = doc.select("#article_details > div.category.clearfix > div.category_r");
+            bm.setPublishDate(doc.select("span#post-date").text() + ":00");
+
+            Elements categor = doc.select("div#BlogPostCategory").first().children().select("a");
             List<String> cat = new ArrayList<>();
-            for(Element ele : select){
-                String text = ele.select("label span").get(0).text();
-                int i = text.lastIndexOf("（");
-                if(i>=0){
-                    String substring = text.substring(0, i);
-                    cat.add(substring);
-                }else{
-                    cat.add(text);
+            if (categor != null) {
+                for (Element ele : categor) {
+                    cat.add(ele.text());
                 }
             }
             bm.setCategories(cat);
-            Elements tagEles = doc.select("#article_details > div.article_manage.clearfix > div.article_l > span > a");
+
+            Elements tagEles = doc.select("div#EntryTag").first().children().select("a");
             List<String> tags = new ArrayList<>();
-            for(Element ele : tagEles){
-                String text = ele.text();
-                tags.add(text);
+            if(tagEles != null) {
+                for (Element ele : tagEles) {
+                    String text = ele.text();
+                    tags.add(text);
+                }
             }
             bm.setTags(tags);
-            doc.getElementsByTag("script").remove();
-            bm.setContent(doc.select("#article_content").toString());
-            try{
+            
+//            doc.getElementsByTag("script").remove();
+            bm.setContent(doc.select("#cnblogs_post_body").toString() + doc.select("#MySignature").toString());
+            try {
                 buildHexo(bm);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -130,30 +131,31 @@ public class CNBlog2mdService {
         sb.append("\r\n");
         sb.append("title: " + bm.getTitle());
         sb.append("\r\n");
-        sb.append("date: " + bm.getPublishDate() + ":00");
+        sb.append("date: " + bm.getPublishDate());
         sb.append("\r\n");
         sb.append("categories:");
         sb.append("\r\n");
-        for(String cat:bm.getCategories()){
+        for (String cat : bm.getCategories()) {
             sb.append("- " + cat);
             sb.append("\r\n");
         }
         sb.append("tags:");
         sb.append("\r\n");
-        for(String tag:bm.getTags()){
+        for (String tag : bm.getTags()) {
             sb.append("- " + tag);
             sb.append("\r\n");
         }
         sb.append("\r\n");
         sb.append("---");
         sb.append("\r\n");
-        sb.append(bm.getDesc()==null?"":bm.getDesc());
+        sb.append(bm.getDesc() == null ? "" : bm.getDesc());
         sb.append("\r\n");
         sb.append("<!--more-->");
         sb.append("\r\n");
         sb.append("\r\n");
-        sb.append(HTML2Md.convertHtml4csdn(bm.getContent(),"UTF-8"));
-        IOUtils.write(sb.toString(),new FileOutputStream(new File(TARGET_DIR + File.separator + bm.getTitle() + ".md")));
+        sb.append(HTML2Md.convertHtml(bm.getContent(), "UTF-8"));
+        IOUtils.write(sb.toString(),
+                new FileOutputStream(new File(TARGET_DIR + File.separator + bm.getTitle() + ".md")));
     }
 
 }

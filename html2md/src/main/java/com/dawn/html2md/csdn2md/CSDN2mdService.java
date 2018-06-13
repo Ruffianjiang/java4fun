@@ -20,11 +20,11 @@ import org.springframework.stereotype.Service;
 import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;
 
 /**
- * @Author: wangxc
+ * @Author: jiangyj
  * @GitHub: https://github.com/Ruffianjiang
- * @CSDN: http://blog.csdn.net/qqhjqs?viewmode=contents
+ * @CSDN: https://www.cnblogs.com/lossingdawn
  * @BLOG: https://lossingdanw.top
- * @wxid: BMHJQS
+ * @wxid: 
  */
 @Service
 public class CSDN2mdService {
