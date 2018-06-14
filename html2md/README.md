@@ -27,15 +27,14 @@ convertAllBlogByUserName("lossingdawn"); // 作者名
   http://localhost:8002/tools/csdn4author
 
 ## 使用jar包执行
-> jar包在lib文件夹下 -> html2md-0.0.1-SNAPSHOT.jar <br/> 在jar包所在位置，执行命令  <br/>
+> jar包地址  -> [html2md-0.0.1-SNAPSHOT.jar](http://pab9ul5c4.bkt.clouddn.com/html2md-0.0.1-SNAPSHOT.jar) <br/> 
+       在jar包所在位置，执行命令  <br/>
   java -jar html2md-0.0.1-SNAPSHOT.jar <br/>
-  访问地址 http://localhost:8002/tools/csdn4author 
+       访问地址  http://localhost:8002/tools/csdn4author 
   
-![15289690656019.png](/resources/img/15289690656019.png "zuul-flow-chart")
-![1528970063.jpg](/resources/img/1528970063.jpg "zuul-flow-chart")
-![1528970083.jpg](/resources/img/1528970083.jpg "zuul-flow-chart")
-    
-注：csdn单文章抓取未做修改
+![15289690656019.png](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/15289690656019.png "导出页面")
+![1528970063.jpg](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/1528970063.jpg "运行日志")
+![1528970083.jpg](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/1528970083.jpg "导出日志")
 
 参考地址：
 https://github.com/vector4wang/blog-export-quick
