@@ -24,7 +24,7 @@ import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;
  * @GitHub: https://github.com/Ruffianjiang
  * @CSDN: https://www.cnblogs.com/lossingdawn
  * @BLOG: https://lossingdanw.top
- * @wxid: 
+ * @wxid:
  */
 @Service
 public class CSDN2mdService {
@@ -38,8 +38,8 @@ public class CSDN2mdService {
     public static void main(String[] args) throws IOException, XpathSyntaxErrorException {
         /*-        String convert = convert(new URL("http://blog.csdn.net/qqhjqs/article/details/66474364"));
         System.out.println(convert);*/
-        convertAllBlogByUserName("ricohzhanglong");
-        // convertAllBlogByUserName("blogdevteam");
+        convertAllBlogByUserName("ricohzhanglong", TARGET_DIR);
+        // convertAllBlogByUserName("blogdevteam",TARGET_DIR);
     }
 
     public String convert(URL url) throws IOException {
@@ -62,10 +62,13 @@ public class CSDN2mdService {
             String result = HTML2Md.convertHtml4csdn(content, "utf-8");
             return result;
         }
-
     }
 
-    private static void convertAllBlogByUserName(String username) throws IOException {
+    public void convertAllBlogByUserNames(String username, String filePath) throws IOException {
+        convertAllBlogByUserName(username, filePath);
+    }
+
+    private static void convertAllBlogByUserName(String username, String filePath) throws IOException {
         // String mdString = "";
         String url = HOST_URL + username + "/article/list/" + 1;
         Document parse = Jsoup.parse(new URL(url), 5000);
@@ -160,15 +163,14 @@ public class CSDN2mdService {
             doc.getElementsByTag("script").remove();
             bm.setContent(doc.select("#article_content").toString());
             try {
-                buildHexo(bm);
+                buildHexo(bm, filePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-    private static void buildHexo(BlogModel bm) throws IOException {
+    private static void buildHexo(BlogModel bm, String filePath) throws IOException {
         System.out.println("保存博文--->[" + bm.getTitle() + "]");
         StringBuffer sb = new StringBuffer();
         sb.append("---");
@@ -199,8 +201,8 @@ public class CSDN2mdService {
         sb.append("\r\n");
         sb.append(HTML2Md.convertHtml4csdn(bm.getContent(), "UTF-8"));
 
-        IOUtils.write(sb.toString(), new FileOutputStream(
-                new File(TARGET_DIR + File.separator + File.separator + bm.getTitle() + ".md")));
+        IOUtils.write(sb.toString(),
+                new FileOutputStream(new File(filePath + File.separator + File.separator + bm.getTitle() + ".md")));
     }
 
 }
