@@ -23,7 +23,8 @@ convertAllBlogByUserName("lossingdawn"); // 作者名
   3、对一些异常的处理，一次使用暂时凑合用吧
 
 ## csdn 文章链接抓取
-> http://localhost:8002/tools/html2md
+> http://localhost:8002/tools/csdn4url <br/>
+  http://localhost:8002/tools/csdn4author
 
 注：csdn单文章抓取未做修改
 

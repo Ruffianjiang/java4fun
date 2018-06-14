@@ -25,13 +25,13 @@
                 <div class="form-group col-md-10">
                     <label class="sr-only" for="blogUrl">只支持CSDN</label>
                     <div class="input-group">
-                        <div class="input-group-addon">文章链接</div>
+                        <div class="input-group-addon">作者</div>
                         <input type="text" class="form-control" id="blogUrl" placeholder="只支持CSDN的文章链接">
                     </div>
                 </div>
                 <div class="form-group col-md-10">
-                    <label>HTML源代码</label>
-                    <textarea class="form-control" rows="8" id="htmlString" style="resize:none"></textarea>
+                    <label>存放路径</label>
+                    <input class="form-control" rows="8" id="htmlString" style="resize:none"></textarea>
                 </div>
                 <div class="form-group col-md-10">
                     <button type="submit" id="submitBtn" onclick="convert()" class="btn btn-primary">转换</button>
@@ -49,7 +49,7 @@
         var url = $("#blogUrl").val();
         var html = $("#htmlString").val();
         var base = document.getElementById("base").href
-        var target = base.replace('html2md','convert');
+        var target = base + '/convert';
         $.ajax({
             type: "POST",
             url: target,
