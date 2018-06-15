@@ -35,6 +35,7 @@ convertAllBlogByUserName("lossingdawn"); // 作者名
 ![15289690656019.png](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/15289690656019.png "导出页面")
 ![1528970063.jpg](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/1528970063.jpg "运行日志")
 ![1528970083.jpg](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/1528970083.jpg "导出日志")
+![1529025363.jpg](https://github.com/Ruffianjiang/dawn-example/blob/master/html2md/img/1529025363.jpg "特殊字符不能导出的")
 
 参考地址：
 https://github.com/vector4wang/blog-export-quick
