@@ -43,7 +43,6 @@ public class WebLogAspect {
 //        loggger.info("参数 : " + Arrays.toString(joinPoint.getArgs()));
         loggger.info("参数 : " + net.sf.json.JSONArray.fromObject(joinPoint.getArgs()));
 //        loggger.info("参数 : " + joinPoint.getArgs());
-
     }
 
     @AfterReturning(returning = "ret", pointcut = "logPointCut()")// returning的值和doAfterReturning的参数名一致
