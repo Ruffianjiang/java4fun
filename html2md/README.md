@@ -1,6 +1,6 @@
 ## 目录
 1. [csdn文章抓取](#csdn文章抓取)  
-2. [cnblog文章抓取 ](#cnblog文章抓取)  
+2. [cnblog文章抓取](#cnblog文章抓取)  
 3. [csdn文章链接抓取](#csdn文章链接抓取)  
 4. [使用jar包执行](#使用jar包执行)  
 
@@ -20,7 +20,7 @@ convertAllBlogByUserName("ricohzhanglong"); // 作者名
 
 
 
-<h2 id="cnblog文章抓取 ">cnblog 文章抓取 </h2> 
+<h2 id="cnblog文章抓取">cnblog 文章抓取 </h2> 
 
 > CNBlog2mdService.java  
 
