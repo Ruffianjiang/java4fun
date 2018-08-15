@@ -89,7 +89,7 @@ public class GifUtil {
                         final float gray = 0.299F * rgb[0] + 0.578F * rgb[1] + 0.114F * rgb[2];
                         // index [0,base.length()),index越小颜色越深
                         final int index = Math.round(gray * (base.length() + 1) / 255);
-                        logger.debug("{}",index);
+//                        logger.debug("{}",index);
                         if (index <= threshold) {
                             g.drawString(String.valueOf(base.charAt(index % base.length())), x, y);// 文字的编写及位置
                         }

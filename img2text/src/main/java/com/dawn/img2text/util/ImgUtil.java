@@ -66,7 +66,7 @@ public class ImgUtil {
                     rgb[2] = (pixel & 0xff);// blue
                     final float gray = 0.299f * rgb[0] + 0.578f * rgb[1] + 0.114f * rgb[2];
                     final int index = Math.round(gray * (base.length() + 1) / 255);
-                    logger.debug("{},{}",index,base.length() / threshold);
+//                    logger.debug("{},{}",index,base.length() / threshold);
                     if (index <= threshold) {
                         g.drawString(String.valueOf(base.charAt(index % base.length())), x, y);// 文字的编写及位置
                     }
