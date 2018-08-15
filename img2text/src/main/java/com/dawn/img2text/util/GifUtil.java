@@ -58,7 +58,7 @@ public class GifUtil {
             if (status != GifDecoder.STATUS_OK) {
                 return false;
             }
-            //
+            // 
             AnimatedGifEncoder ge = new AnimatedGifEncoder();
             // 这里是关键，设置要替换成透明的颜色
             ge.setTransparent(Color.WHITE);
@@ -89,7 +89,8 @@ public class GifUtil {
                         final float gray = 0.299F * rgb[0] + 0.578F * rgb[1] + 0.114F * rgb[2];
                         // index [0,base.length()),index越小颜色越深
                         final int index = Math.round(gray * (base.length() + 1) / 255);
-                        if (index <= base.length() % threshold) {
+                        logger.debug("{}",index);
+                        if (index <= threshold) {
                             g.drawString(String.valueOf(base.charAt(index % base.length())), x, y);// 文字的编写及位置
                         }
                         /*-
@@ -103,7 +104,7 @@ public class GifUtil {
             }
             // 输出图片
             ge.finish();
-            logger.debug("{} toTextGif cost time： {}s", srcFile, System.currentTimeMillis() - startTime);
+            logger.debug("{} toTextGif cost time： {}ms", srcFile, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("err", e);
             return false;

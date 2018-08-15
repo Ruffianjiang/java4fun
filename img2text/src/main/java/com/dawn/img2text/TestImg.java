@@ -29,6 +29,7 @@ import com.dawn.img2text.external.GifDecoder;
 import com.dawn.img2text.util.FfmpegUtil;
 import com.dawn.img2text.util.GifUtil;
 import com.dawn.img2text.util.Im4JavaUtils;
+import com.dawn.img2text.util.ImgUtil;
 
 public class TestImg {
 
@@ -36,23 +37,35 @@ public class TestImg {
         // readImg();
         // readGif();
         // helloGif();
-        readVideo();
+        // 
+        imgTest();
+         gifTest();
+        // videoTest();
     }
 
     @Test
     public static void imgTest() {
-
+        String inputFile = "F:/123/head.png";
+        String outputFile = "F:/123/head_copy.png";
+        // String base = "01"; // 替换的字符串
+        String base = "@#&$%*o!;.";// 字符串由复杂到简单
+        int threshold = 8;// 阈值
+        ImgUtil.toTextImg(inputFile, outputFile, base, threshold);
     }
 
     @Test
     public static void gifTest() {
-
-        String srcFile = "F:/123/1.gif";
-        String targetFile = "F:/123/1_03.gif";
+        String srcFile = "F:/123/123.gif";
+        String targetFile = "F:/123/123_04.gif";
         String base = "01"; // 替换的字符串
         // String base = "@#&$%*o!;.";// 字符串由复杂到简单
         int threshold = 3;// 阈值
         GifUtil.toTextGif(srcFile, targetFile, base, threshold);
+    }
+
+    @Test
+    public static void videoTest() {
+
     }
 
     public static boolean readVideo() {
