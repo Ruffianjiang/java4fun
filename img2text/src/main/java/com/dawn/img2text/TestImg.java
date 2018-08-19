@@ -65,7 +65,11 @@ public class TestImg {
 
     @Test
     public static void videoTest() {
-
+        String srcVideoPath = "F:/123/123.mp4";
+        String tarImagePath = "F:/123/mp/";
+        String tarAudioPath = "F:/123/mp/audio.aac";
+        String tarVideoPath = "F:/123/1234.mp4";
+        readVideo();
     }
 
     public static boolean readVideo() {

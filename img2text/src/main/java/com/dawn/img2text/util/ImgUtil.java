@@ -57,7 +57,6 @@ public class ImgUtil {
             Graphics g = tag.getGraphics();
             g.setFont(new Font("微软雅黑", Font.PLAIN, 10));// 设置字体
             g.setColor(Color.BLUE);// 设置颜色
-
             for (int x = minx; x < width; x += 6) {
                 for (int y = miny; y < height; y += 6) {
                     int pixel = src.getRGB(x, y); // 下面三行代码将一个数字转换为RGB数字

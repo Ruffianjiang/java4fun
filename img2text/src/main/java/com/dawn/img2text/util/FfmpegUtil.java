@@ -39,7 +39,7 @@ public class FfmpegUtil {
             ProcessBuilder builder = new ProcessBuilder();
             builder.command(commend);
             builder.redirectErrorStream(true);
-            builder.redirectOutput(new File("F:/123/dp/log.log"));
+            // builder.redirectOutput(new File("F:/123/log/log.log"));
             Process process = builder.start();
             doWaitFor(process);
             process.destroy();
@@ -107,7 +107,7 @@ public class FfmpegUtil {
             ProcessBuilder builder = new ProcessBuilder();
             builder.command(commend);
             builder.redirectErrorStream(true);
-            builder.redirectOutput(new File("F:/123/dp/log.log"));
+            // builder.redirectOutput(new File("F:/123/log/log.log"));
             Process process = builder.start();
             doWaitFor(process);
             process.destroy();
@@ -123,6 +123,124 @@ public class FfmpegUtil {
             System.out.println("【" + srcVideoPath + "】 processFfmpegImage  转换不成功 !");
             // logger.error("【" + srcVideoPath + "】 processFfmpegImage 转换不成功
             // !");
+            return false;
+        }
+    }
+    
+    public static boolean processFfmpegAudio(String srcVideoPath, String tarAudioPath) {
+        if (!checkfile(srcVideoPath)) {
+            System.out.println("【" + srcVideoPath + "】  不存在 !");
+            // logger.error("【" + srcVideoPath + "】 不存在 !");
+            return false;
+        }
+        // https://blog.csdn.net/xiaocao9903/article/details/53420519
+        // ffmpeg -i 3.mp4 -vn -y -acodec copy 3.aac
+        // ffmpeg -i 3.mp4 -vn -y -acodec copy 3.m4a
+        
+        List<String> commend = new java.util.ArrayList<String>();
+        
+        commend.add(ffmpegPath);
+        
+        commend.add("-i");
+        
+        commend.add(srcVideoPath);
+        
+        commend.add("-vn");
+
+        commend.add("-y");
+        
+        commend.add("-acodec");
+        
+        commend.add("copy"); // 在视频的某个插入时间截图，例子为5秒后
+        
+        commend.add(tarAudioPath);
+        
+        try {
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.command(commend);
+            builder.redirectErrorStream(true);
+            Process process = builder.start();
+            doWaitFor(process);
+            process.destroy();
+            if (!checkfile(tarAudioPath)) {
+                System.out.println(tarAudioPath + " is not exit!  processFfmpegAudio 转换不成功 !");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("【" + srcVideoPath + "】 processFfmpegAudio  转换不成功 !");
+            return false;
+        }
+    }
+
+    /**
+     * ffmpeg 合成视频
+     * 
+     * @param srcVideoPath
+     * @param tarImagePath
+     *            截取后图片路径
+     * @param width
+     *            截图的宽
+     * @param hight
+     *            截图的高
+     * @param offsetValue
+     *            表示相对于文件开始处的时间偏移值 可以是分秒
+     * @param vframes
+     *            表示截图的桢数
+     * 
+     * @return
+     */
+    public static boolean processFfmpegVideo(String imagePath, String audioPath, String tarVideoPath, int step) {
+        // https://blog.csdn.net/wangshuainan/article/details/77914508?fps=1&locationNum=4
+        // 带音频
+        // ffmpeg -threads2 -y -r 10 -i /tmpdir/image%04d.jpg -i audio.mp3 -absf
+        // aac_adtstoasc output.mp4
+
+        List<String> commend = new java.util.ArrayList<String>();
+
+        commend.add(ffmpegPath);
+
+        commend.add("-threads");
+        
+        commend.add("2");
+
+        commend.add("-y");
+
+        commend.add("-r");
+
+        commend.add(step + "");
+
+        commend.add("-i");
+
+        commend.add(imagePath); // 图片
+
+        commend.add("-i");
+
+         commend.add(audioPath);
+
+        commend.add("-absf");// 
+
+        commend.add("aac_adtstoasc"); // 
+
+        commend.add(tarVideoPath);
+
+        try {
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.command(commend);
+            builder.redirectErrorStream(true);
+             builder.redirectOutput(new File("F:/123/log/log.log"));
+            Process process = builder.start();
+            doWaitFor(process);
+            process.destroy();
+            if (!checkfile(tarVideoPath)) {
+                System.out.println(tarVideoPath + " is not exit!  processFfmpegVideo 转换不成功 !");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("【" + tarVideoPath + "】 processFfmpegVideo  转换不成功 !");
             return false;
         }
     }
