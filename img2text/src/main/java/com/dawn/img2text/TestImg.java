@@ -30,6 +30,7 @@ import com.dawn.img2text.util.FfmpegUtil;
 import com.dawn.img2text.util.GifUtil;
 import com.dawn.img2text.util.Im4JavaUtils;
 import com.dawn.img2text.util.ImgUtil;
+import com.dawn.img2text.util.VideoUtil;
 
 public class TestImg {
 
@@ -40,7 +41,7 @@ public class TestImg {
         // 
         imgTest();
          gifTest();
-        // videoTest();
+         videoTest();
     }
 
     @Test
@@ -69,7 +70,7 @@ public class TestImg {
         String tarImagePath = "F:/123/mp/";
         String tarAudioPath = "F:/123/mp/audio.aac";
         String tarVideoPath = "F:/123/1234.mp4";
-        readVideo();
+        VideoUtil.readVideo(srcVideoPath,tarImagePath,tarAudioPath,tarVideoPath);
     }
 
     public static boolean readVideo() {

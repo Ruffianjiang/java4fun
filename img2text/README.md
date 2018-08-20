@@ -54,9 +54,22 @@
 
 
 
-<h2 id="视频转视频">视频转视频(未完成)</h2> 
+<h2 id="视频转视频">视频转视频</h2> 
 
-> FfmpegUtil.java
+> FfmpegUtil.java\VideoUtil.java
+没做细致的调整，视频的转换可以调调参数
 
+![转换前](http://pab9ul5c4.bkt.clouddn.com/123.mp4)
+![转换后](http://pab9ul5c4.bkt.clouddn.com/1234.mp4)
 
-
+测试代码
+```java
+    @Test
+    public static void videoTest() {
+        String srcVideoPath = "F:/123/123.mp4";
+        String tarImagePath = "F:/123/mp/";
+        String tarAudioPath = "F:/123/mp/audio.aac";
+        String tarVideoPath = "F:/123/1234.mp4";
+        VideoUtil.readVideo(srcVideoPath,tarImagePath,tarAudioPath,tarVideoPath);
+    }
+```
