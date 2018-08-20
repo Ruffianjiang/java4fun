@@ -65,6 +65,7 @@ Your browser does not support the video tag.
 <video src="http://pab9ul5c4.bkt.clouddn.com/1234.mp4" width="320" height="240" controls="controls">
 Your browser does not support the video tag.
 </video>
+<iframe height=498 width=510 src="http://pab9ul5c4.bkt.clouddn.com/1234.mp4" frameborder=0 allowfullscreen></iframe>
 
 测试代码
 ```java
