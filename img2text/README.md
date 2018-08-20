@@ -59,8 +59,12 @@
 > FfmpegUtil.java\VideoUtil.java
 没做细致的调整，视频的转换可以调调参数
 
-![转换前](http://pab9ul5c4.bkt.clouddn.com/123.mp4)
-![转换后](http://pab9ul5c4.bkt.clouddn.com/1234.mp4)
+<video src="http://pab9ul5c4.bkt.clouddn.com/123.mp4" width="320" height="240" controls="controls">
+Your browser does not support the video tag.
+</video>
+<video src="http://pab9ul5c4.bkt.clouddn.com/1234.mp4" width="320" height="240" controls="controls">
+Your browser does not support the video tag.
+</video>
 
 测试代码
 ```java
