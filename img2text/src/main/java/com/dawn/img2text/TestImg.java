@@ -23,8 +23,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import org.junit.Test;
-
 import com.dawn.img2text.external.GifDecoder;
 import com.dawn.img2text.util.FfmpegUtil;
 import com.dawn.img2text.util.GifUtil;
@@ -44,7 +42,6 @@ public class TestImg {
          videoTest();
     }
 
-    @Test
     public static void imgTest() {
         String inputFile = "F:/123/head.png";
         String outputFile = "F:/123/head_copy.png";
@@ -54,7 +51,6 @@ public class TestImg {
         ImgUtil.toTextImg(inputFile, outputFile, base, threshold);
     }
 
-    @Test
     public static void gifTest() {
         String srcFile = "F:/123/123.gif";
         String targetFile = "F:/123/123_04.gif";
@@ -64,7 +60,6 @@ public class TestImg {
         GifUtil.toTextGif(srcFile, targetFile, base, threshold);
     }
 
-    @Test
     public static void videoTest() {
         String srcVideoPath = "F:/123/123.mp4";
         String tarImagePath = "F:/123/mp/";
