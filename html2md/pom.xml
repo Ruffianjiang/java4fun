@@ -98,7 +98,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.dawn.html2md.Application</mainClass>
+                    <mainClass>com.dawn.html2md.Html2mdApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

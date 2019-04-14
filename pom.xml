@@ -3,11 +3,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dawn</groupId>
-    <artifactId>dawn-example</artifactId>
+    <artifactId>java4fun</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>dawn-example</name>
-
+    <name>java4fun</name>
 
     <modules>
         <module>html2md</module>
