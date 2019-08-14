@@ -2,16 +2,16 @@ language: java
 sudo: false
 
 jdk:
-   - openjdk8
+  - openjdk8
 #  - oraclejdk9
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
 #script: mvn test
 script:
-    - "mvn -DskipTests=true clean package"
-    - "mvn cobertura:cobertura"
+#  - "mvn -DskipTests=true clean package"
+  - "mvn cobertura:cobertura"
 
 after_success:
-   - bash <(curl -s https://codecov.io/bash)
-   - bash <(curl --data-binary @codecov.yml https://codecov.io/validate)
+  - bash <(curl -s https://codecov.io/bash) -t 047ada2e-65af-44d4-8d9e-98123d5e6c85
+#   - bash <(curl --data-binary @codecov.yml https://codecov.io/validate)
 
 
