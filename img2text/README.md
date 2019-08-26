@@ -9,7 +9,9 @@
 
 > ImgUtil.java
 
-![原图](img/head.png) ![转换后](img/head_copy.png)  
+![原图](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/head.png?x-oss-process=style/default_blog) 
+
+![转换后](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/head_copy.png?x-oss-process=style/default_blog)  
 
 ```java
     @Test
@@ -25,7 +27,7 @@
 
 <h2 id="参数调整">具体参数调整如下图所示：</h2>  
 
-![参数调整](img/paranCode.png)  
+![参数调整](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/paranCode.png?x-oss-process=style/default_blog)  
 
 1. 调整字符大小，颜色    
 2. 调整字符间距    
@@ -36,8 +38,18 @@
 
 >  GifUtil.java  
 
-![原图](img/1.gif) ![转换后1](img/1_03.gif)  
-![原图](img/123.gif) ![转换后1](img/123_03.gif) ![转换后2](img/123_04.gif)  
+![原图](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/1.gif) 
+
+![转换后1](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/1_03.gif)  
+
+
+![原图](
+https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/123.gif) 
+
+![转换后1](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/123_03.gif) 
+
+![转换后2](
+https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/123_04.gif)  
 
 测试代码
 ```java
@@ -60,8 +72,11 @@
 
 没做细致的调整，视频的转换可以调调参数  
 
-[![Watch the video](img/3-0.png)](http://pab9ul5c4.bkt.clouddn.com/123.mp4) 
-[![Watch the video](img/3-1.png)](http://pab9ul5c4.bkt.clouddn.com/1234.mp4)
+[![Watch the video](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/3-0.png?x-oss-process=style/default_blog)](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/123.mp4) 
+
+
+[![Watch the video](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/3-1.png?x-oss-process=style/default_blog)](https://blog-lossingdawn.oss-cn-shanghai.aliyuncs.com/img2text/1234.mp4)
+
 
 测试代码
 ```java
