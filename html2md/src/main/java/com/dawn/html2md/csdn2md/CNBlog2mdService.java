@@ -146,9 +146,9 @@ public class CNBlog2mdService {
         sb.append("\r\n");
         sb.append(HTML2Md.convertHtml(bm.getContent(), "UTF-8"));
 
-        String fileName = TARGET_DIR + File.separator + bm.getTitle() + ".md";
+        String fileName = bm.getTitle().replaceAll("\\.", "").replaceAll("/", "");
         IOUtils.write(sb.toString(),
-                Files.newOutputStream(new File(fileName).toPath()),
+                Files.newOutputStream(new File(TARGET_DIR + File.separator + fileName + ".md").toPath()),
                 Charset.defaultCharset());
     }
 
