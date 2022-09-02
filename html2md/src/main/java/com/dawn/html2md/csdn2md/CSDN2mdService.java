@@ -197,6 +197,7 @@ public class CSDN2mdService {
         sb.append(HTML2Md.convertHtml4csdn(bm.getContent(), "UTF-8"));
 
         String fileName = bm.getTitle().replaceAll("\\.", "").replaceAll("/", "");
+        filePath = filePath.replaceAll("\\.", "").replaceAll("/", "");
         IOUtils.write(sb.toString(),
                 Files.newOutputStream(new File(filePath + File.separator + fileName + ".md").toPath()),
                 Charset.defaultCharset());
