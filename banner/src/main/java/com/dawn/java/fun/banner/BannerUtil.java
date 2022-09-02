@@ -9,17 +9,6 @@ package com.dawn.java.fun.banner;
  */
 public class BannerUtil {
 
-
-
-
-
-
-
-
-
-
-
-
     public static void main(String[] args) {
 
     }
