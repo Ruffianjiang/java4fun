@@ -8,7 +8,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.parser.Tag;
 import org.jsoup.safety.Cleaner;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.jsoup.select.Elements;
 
 import java.io.File;
@@ -199,8 +199,8 @@ public class HTML2Md {
 
         String title = dirtyDoc.title();
 
-        Whitelist whitelist = Whitelist.relaxed();
-        Cleaner cleaner = new Cleaner(whitelist);
+        Safelist safelist = Safelist.relaxed();
+        Cleaner cleaner = new Cleaner(safelist);
 
         Document doc = cleaner.clean(dirtyDoc);
         doc.outputSettings().escapeMode(EscapeMode.xhtml);
