@@ -15,9 +15,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.seimicrawler.xpath.exception.XpathSyntaxErrorException;
 import org.springframework.stereotype.Service;
 
-import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;
 
 /**
  * @Author: jiangyj
