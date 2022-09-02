@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.*;
 
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -46,8 +44,7 @@ public class CSDN2mdService {
         Document doc = Jsoup.parse(url, 5000);
         doc.getElementsByTag("script").remove();
         String content = doc.select("#article_content").toString();
-        String result = HTML2Md.convertHtml4csdn(content, "utf-8");
-        return result;
+        return HTML2Md.convertHtml4csdn(content, "utf-8");
     }
 
     public String convert(String html) {
@@ -55,12 +52,10 @@ public class CSDN2mdService {
         doc.getElementsByTag("script").remove();
         Elements select = doc.select("#article_content");
         if (select.isEmpty()) {
-            String convert = HTML2Md.convert(html, "utf-8");
-            return convert;
+            return HTML2Md.convert(html, "utf-8");
         } else {
             String content = select.toString();
-            String result = HTML2Md.convertHtml4csdn(content, "utf-8");
-            return result;
+            return HTML2Md.convertHtml4csdn(content, "utf-8");
         }
     }
 
@@ -83,10 +78,10 @@ public class CSDN2mdService {
         */
         // 新版获取总页数有点坑, 暴力获取页码等
         Elements body = parse.select("body");
-        Element pagescript = body.first().children().get(9);
-        System.out.println(pagescript.html());
+        Element pageScript = Objects.requireNonNull(body.first()).children().get(9);
+        System.out.println(pageScript.html());
 
-        String pagehtml = pagescript.html();
+        String pagehtml = pageScript.html();
         String currentPageStr = pagehtml.substring(pagehtml.indexOf("currentPage") + "currentPage =".length(),
                 pagehtml.indexOf(";", pagehtml.indexOf("currentPage"))).trim();
         String baseUrl = pagehtml.substring(pagehtml.indexOf("baseUrl") + "baseUrl =".length(),
@@ -96,16 +91,16 @@ public class CSDN2mdService {
         String listTotalStr = pagehtml.substring(pagehtml.indexOf("listTotal") + "listTotal =".length(),
                 pagehtml.indexOf(";", pagehtml.indexOf("listTotal"))).trim();
 
-        int currentPage = Integer.valueOf(currentPageStr);
-        int pageSize = Integer.valueOf(pageSizeStr);
-        int listTotal = Integer.valueOf(listTotalStr);
+        int currentPage = Integer.parseInt(currentPageStr);
+        int pageSize = Integer.parseInt(pageSizeStr);
+        int listTotal = Integer.parseInt(listTotalStr);
 
         System.out.println(currentPage);
         System.out.println(baseUrl);
         System.out.println(pageSize);
         System.out.println(listTotal);
 
-        int total = Integer.valueOf((listTotal % pageSize == 0) ? (listTotal / pageSize) : (listTotal / pageSize + 1));
+        int total = (listTotal % pageSize == 0) ? (listTotal / pageSize) : (listTotal / pageSize + 1);
         System.out.println(total);
         Map<String, String> map = new HashMap<>();
         for (int i = 1; i <= total; i++) {
@@ -115,9 +110,9 @@ public class CSDN2mdService {
             // Elements normalSelect = doc.select(NOMAIL_QUERY);
             for (Element item : topSelect) {
                 try {
-                    map.put(item.select("h4.text-truncate").first().children().select("a").attr("href"),
-                            item.select("h4.text-truncate").first().children().select("a").text());
-                } catch (Exception e) {
+                    map.put(Objects.requireNonNull(item.select("h4.text-truncate").first()).children().select("a").attr("href"),
+                            Objects.requireNonNull(item.select("h4.text-truncate").first()).children().select("a").text());
+                } catch (Exception ignored) {
                 }
             }
             /*-            for (Element item : normalSelect) {
@@ -131,7 +126,7 @@ public class CSDN2mdService {
             try {
                 doc = Jsoup.parse(new URL(item), 5000);
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
                 continue;
             }
             BlogModel bm = new BlogModel();
@@ -172,23 +167,23 @@ public class CSDN2mdService {
 
     private static void buildHexo(BlogModel bm, String filePath) throws IOException {
         System.out.println("保存博文--->[" + bm.getTitle() + "]");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("---");
         sb.append("\r\n");
-        sb.append("title: " + bm.getTitle());
+        sb.append("title: ").append(bm.getTitle());
         sb.append("\r\n");
-        sb.append("date: " + bm.getPublishDate() + ":00");
+        sb.append("date: ").append(bm.getPublishDate()).append(":00");
         sb.append("\r\n");
         sb.append("categories:");
         sb.append("\r\n");
         for (String cat : bm.getCategories()) {
-            sb.append("- " + cat);
+            sb.append("- ").append(cat);
             sb.append("\r\n");
         }
         sb.append("tags:");
         sb.append("\r\n");
         for (String tag : bm.getTags()) {
-            sb.append("- " + tag);
+            sb.append("- ").append(tag);
             sb.append("\r\n");
         }
         sb.append("\r\n");
@@ -202,7 +197,8 @@ public class CSDN2mdService {
         sb.append(HTML2Md.convertHtml4csdn(bm.getContent(), "UTF-8"));
 
         IOUtils.write(sb.toString(),
-                new FileOutputStream(new File(filePath + File.separator + File.separator + bm.getTitle() + ".md")));
+                Files.newOutputStream(new File(filePath + File.separator + File.separator + bm.getTitle() + ".md").toPath()),
+                Charset.defaultCharset());
     }
 
 }

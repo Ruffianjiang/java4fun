@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Administrator
  */
 public class MD5Util {
-    private static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7',
+    private static final char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7',
             '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
     private static MessageDigest messagedigest = null;
 
@@ -22,7 +22,8 @@ public class MD5Util {
         try {
             messagedigest = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            // logger.error("MD5FileUtil messagedigest初始化失败", e);
+            e.printStackTrace();
+//             logger.error("MD5FileUtil messagedigest初始化失败", e);
         }
     }
 
@@ -79,11 +80,11 @@ public class MD5Util {
         return bufferToHex(messagedigest.digest());
     }
 
-    private static String bufferToHex(byte bytes[]) {
+    private static String bufferToHex(byte[] bytes) {
         return bufferToHex(bytes, 0, bytes.length);
     }
 
-    private static String bufferToHex(byte bytes[], int m, int n) {
+    private static String bufferToHex(byte[] bytes, int m, int n) {
         StringBuffer stringbuffer = new StringBuffer(2 * n);
         int k = m + n;
         for (int l = m; l < k; l++) {
