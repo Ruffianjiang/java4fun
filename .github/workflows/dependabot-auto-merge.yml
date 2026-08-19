@@ -21,9 +21,13 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Enable auto-merge (skip major)
+      - name: Auto-merge (skip major, fallback if auto-merge disabled)
         if: steps.meta.outputs.update-type != 'version-update:semver-major'
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: |
+          if ! gh pr merge --auto --squash "$PR_URL"; then
+            echo "auto-merge unavailable on this repo, merging directly"
+            gh pr merge --squash "$PR_URL"
+          fi
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
