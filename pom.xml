@@ -19,7 +19,7 @@
         <maven.test.skip>true</maven.test.skip>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.boot.version>2.7.3</spring.boot.version>
+        <spring.boot.version>4.1.0</spring.boot.version>
     </properties>
 
     <dependencies>
@@ -74,7 +74,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.15</version>
                 <executions>
                     <execution>
                         <goals>
