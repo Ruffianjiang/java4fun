@@ -1,0 +1,11 @@
+# java4fun → 放到 .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/html2md"   # 现有 PR 路径确认（Bump ... in /html2md）
+    schedule:
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns: ["*"]
+    open-pull-requests-limit: 10
