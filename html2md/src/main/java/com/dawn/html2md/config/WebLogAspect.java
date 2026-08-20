@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class WebLogAspect {
 
     private static final Logger loggger = LogManager.getLogger(WebLogAspect.class);
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Pointcut("execution(public * com.quick..controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
     public void logPointCut() {
@@ -41,7 +43,11 @@ public class WebLogAspect {
         loggger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
                 + joinPoint.getSignature().getName());
 //        loggger.info("参数 : " + Arrays.toString(joinPoint.getArgs()));
-        loggger.info("参数 : " + net.sf.json.JSONArray.fromObject(joinPoint.getArgs()));
+        try {
+            loggger.info("参数 : " + objectMapper.writeValueAsString(joinPoint.getArgs()));
+        } catch (Exception e) {
+            loggger.info("参数 : " + java.util.Arrays.toString(joinPoint.getArgs()));
+        }
 //        loggger.info("参数 : " + joinPoint.getArgs());
     }
 

@@ -37,11 +37,11 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+        <!-- https://mvnrepository.com/artifact/org.htmlunit/htmlunit -->
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
+            <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.64.0</version>
+            <version>3.11.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.james/apache-mime4j -->
@@ -67,14 +67,6 @@
             <version>1.23.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>2.4</version>
-            <classifier>jdk15</classifier>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -92,7 +84,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <version>2.7.3</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -117,8 +108,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>

@@ -7,13 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
+import org.htmlunit.HttpMethod;
+import org.htmlunit.Page;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebRequest;
+import org.htmlunit.util.NameValuePair;
 
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * @Author: wangxc
@@ -23,6 +24,8 @@ import net.sf.json.JSONObject;
  * @wxid: BMHJQS
  */
 public class InnotreeService {
+    private static final ObjectMapper mapper = new ObjectMapper();
+
     public static void main(String[] args) throws IOException {
         final WebClient webClient = new WebClient();// 创建WebClient
 
@@ -55,7 +58,7 @@ public class InnotreeService {
 
         WebRequest webRequest = new WebRequest(new URL("http://www.innotree.cn/collectlog/info.ajax"));
         webRequest.setHttpMethod(HttpMethod.POST);
-        JSONObject params = new JSONObject();
+        ObjectNode params = mapper.createObjectNode();
         params.put("source_type","pc");
         params.put("collect_type","click");
         params.put("collect_key","search");
@@ -67,8 +70,8 @@ public class InnotreeService {
         params.put("gen_time",format.format(new Date()));
         params.put("collect_page","SearchList");
 
-        JSONObject nj = new JSONObject();
-        nj.put("json",params);
+        ObjectNode nj = mapper.createObjectNode();
+        nj.set("json",params);
 
         webRequest.setAdditionalHeader("Accept","application/json, text/javascript, */*; q=0.01");
         webRequest.setAdditionalHeader("Accept-Encoding","gzip, deflate");
