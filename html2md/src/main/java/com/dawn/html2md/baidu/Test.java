@@ -1,8 +1,8 @@
 package com.dawn.html2md.baidu;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.Page;
+import org.htmlunit.WebClient;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
