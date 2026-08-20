@@ -1,5 +1,5 @@
-# 放到 <repo>/.github/workflows/dependabot-auto-merge.yml
 # 对 dependabot[bot] 的 patch/minor 更新自动 squash 合并；major 不自动合并（人工 review）
+# 针对 grouped PR（body 无 update-type 元数据）额外解析 | Package | From | To | 表检测 major
 name: Dependabot auto-merge
 
 on:
@@ -21,8 +21,23 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Detect major in grouped PR body
+        id: major-check
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          MAJOR=$(printf '%s' "$PR_BODY" | awk -F'|' '
+            /^\s*\|/ && $2 !~ /Package/ && $3 ~ /`/ && $4 ~ /`/ {
+              from=$3; to=$4
+              gsub(/[` ]/,"",from); gsub(/[` ]/,"",to)
+              split(from,f,"."); split(to,t,".")
+              if (f[1]+0 < t[1]+0) found=1
+            }
+            END { print found+0 }')
+          echo "major_detected=$MAJOR" >> "$GITHUB_OUTPUT"
+
       - name: Auto-merge (skip major, fallback if auto-merge disabled)
-        if: steps.meta.outputs.update-type != 'version-update:semver-major'
+        if: steps.meta.outputs.update-type != 'version-update:semver-major' && steps.major-check.outputs.major_detected != '1'
         run: |
           if ! gh pr merge --auto --squash "$PR_URL"; then
             echo "auto-merge unavailable on this repo, merging directly"
