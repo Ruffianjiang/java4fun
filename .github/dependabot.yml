@@ -9,3 +9,9 @@ updates:
       all-dependencies:
         patterns: ["*"]
     open-pull-requests-limit: 10
+    # 挡住 Spring Boot 的 major 自动升级：2.7.x → 4.x 属破坏性变更
+    # （starter-aop 在 4.x 被重命名为 starter-aspectj，且需 Java 17 + Jakarta 命名空间）
+    # 仅允许 minor/patch 范围内的安全更新
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot*"
+        update-types: ["version-update:semver-major"]
