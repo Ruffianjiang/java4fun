@@ -15,3 +15,7 @@ updates:
     ignore:
       - dependency-name: "org.springframework.boot:spring-boot*"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "org.htmlunit:htmlunit"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.jayway.jsonpath:json-path"
+        update-types: ["version-update:semver-major"]
