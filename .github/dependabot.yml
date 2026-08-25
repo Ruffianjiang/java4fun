@@ -17,3 +17,5 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "org.htmlunit:htmlunit"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "com.jayway.jsonpath:json-path"
+        update-types: ["version-update:semver-major"]
